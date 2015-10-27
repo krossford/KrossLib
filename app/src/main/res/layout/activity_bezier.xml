@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".MainActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="double touch then drag to create a multi-control point.\ndouble touch only to create a simple point."/>
+    <com.krosshuang.krosslib.view.AdvancedBezierView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
