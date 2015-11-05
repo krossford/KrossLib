@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -180,7 +181,9 @@ public class MarkView extends View {
 
     public void loadImage(Bitmap bitmap) {
         mImage = bitmap;
-        mElementPaint.setShader(new BitmapShader(Mosaic.mosaic(mImage), Shader.TileMode.MIRROR, Shader.TileMode.MIRROR));
+        long t = SystemClock.uptimeMillis();
+        mElementPaint.setShader(new BitmapShader(Mosaic.fastMosaic(mImage), Shader.TileMode.MIRROR, Shader.TileMode.MIRROR));
+        Log.i(LOG_TAG, "mosaic cast: " + (SystemClock.uptimeMillis() - t));
         if (mImage.getWidth() <= getWidth() && mImage.getHeight() <= getHeight()) {
             mImageRect = new RectF(0, 0, mImage.getWidth(), mImage.getHeight());
         } else {

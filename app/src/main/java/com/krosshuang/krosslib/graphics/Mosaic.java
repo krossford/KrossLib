@@ -25,16 +25,28 @@ public class Mosaic {
     }
 
     /**
-     * get a rectangle area's average color.
-     * if meet a completely transparent pixel, skip it.
+     * fast mosaic
      * */
-    private static int getAverage(int x, int y, int templateSize, Bitmap b) {
+    public static Bitmap fastMosaic(Bitmap b) {
+        Bitmap newBitmap = b.copy(b.getConfig(), true);
+        int averageColor;
+        for (int y = 0; y < b.getHeight(); y += TEMPLATE_SIZE) {
+            for (int x = 0; x < b.getWidth(); x += TEMPLATE_SIZE) {
+                averageColor = getApproximateAverage(x, y, 15, TEMPLATE_SIZE, b);
+                setAreaColor(x, y, TEMPLATE_SIZE, averageColor, newBitmap);
+            }
+        }
+        return newBitmap;
+    }
+
+    private static int getApproximateAverage(int x, int y, int interval, int templateSize, Bitmap b) {
         int pixel;
         long totalRed = 0;
         long totalGreen = 0;
         long totalBlue = 0;
-        for (int row = y; row < y + templateSize && row < b.getHeight(); row++) {
-            for (int col = x; col < x + templateSize && col < b.getWidth(); col++) {
+        int count = 0;
+        for (int row = y; row < y + templateSize && row < b.getHeight(); row += interval) {
+            for (int col = x; col < x + templateSize && col < b.getWidth(); col += interval) {
                 pixel = b.getPixel(col, row);
                 if (Color.alpha(pixel) == 0) {    //skip completely transparent(0x00)
                     continue;
@@ -42,12 +54,20 @@ public class Mosaic {
                 totalRed += Color.red(pixel);
                 totalGreen += Color.green(pixel);
                 totalBlue += Color.blue(pixel);
+                count++;
             }
         }
 
-        templateSize = templateSize * templateSize;
-        Log.i(LOG_TAG, "average red: " + totalRed);
-        return Color.argb(255, (int)(totalRed / templateSize), (int)(totalGreen / templateSize), (int)(totalBlue / templateSize));
+        //Log.i(LOG_TAG, "average red: " + totalRed);
+        return Color.argb(255, (int)(totalRed / count), (int)(totalGreen / count), (int)(totalBlue / count));
+    }
+
+    /**
+     * get a rectangle area's average color.
+     * if meet a completely transparent pixel, skip it.
+     * */
+    private static int getAverage(int x, int y, int templateSize, Bitmap b) {
+        return getApproximateAverage(x, y, 1, templateSize, b);
     }
 
     /**
