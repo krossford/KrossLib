@@ -1,17 +1,16 @@
-package com.krosshuang.krosslib;
+package com.krosshuang.krosslib.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.krosshuang.krosslib.R;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String[][] mData = new String[][]{
             {"Bezier Curve", "BezierActivity"},
             {"Screenshot Marker", "ScreenshotActivity"},
+            {"Test All API", "TestAllApiActivity"}
     };
 
     @Override
