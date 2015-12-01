@@ -40,18 +40,20 @@ public class Bresenham {
 
         int dx = Math.abs(start.x - end.x);
         int dy = Math.abs(start.y - end.y);
+        int deltaX = (start.x - end.x) / dx;
+        int deltaY = (start.y - end.y) / dy;
 
         //对角线的情况
         if (dx == dy) {
             Point[] list = getInitedPointArray(Math.abs(end.x - start.x) + 1);
             Point temp = new Point();
-            temp.x = Math.min(start.x, end.x);
-            temp.y = Math.min(start.y, end.y);
+            temp.x = end.x;
+            temp.y = end.y;
             for (Point p : list) {
                 p.x = temp.x;
                 p.y = temp.y;
-                temp.x++;
-                temp.y++;
+                temp.x += deltaX;
+                temp.y += deltaY;
             }
             return list;
         }
@@ -59,7 +61,6 @@ public class Bresenham {
         int p;
         int x = 0;
         int y = 0;
-        int delta = 1;
         Point temp = new Point();
 
 
@@ -67,32 +68,16 @@ public class Bresenham {
         if (dx > dy) {
             p = 2 * dy - dx;
             Point[] list = getInitedPointArray(dx + 1);
-            if (start.x < end.x) {//将两个端点中x偏小的点作为起始点，然后比较y轴是递增还递减
-                temp.x = start.x;
-                temp.y = start.y;
-                if (end.y < start.y) {
-                    delta = -1;
-                } else {
-                    delta = 1;
-                }
-            } else {
-                temp.x = end.x;
-                temp.y = end.y;
-                if (end.y > start.y) {
-                    delta = -1;
-                } else {
-                    delta = 1;
-                }
-            }
+            temp.x = end.x;
+            temp.y = end.y;
             for (int i = 0; i <= dx; i++) {
                 if (i == 0) {
-
                     x = list[0].x = temp.x;
                     y = list[0].y = temp.y;
                 } else {
-                    x = list[i].x = x + 1;
+                    x = list[i].x = x + deltaX;
                     if (p >= 0) {
-                        y = list[i].y = y + delta;
+                        y = list[i].y = y + deltaY;
                         p = p + 2 * dy - 2 * dx;
                     } else {
                         y = list[i].y = y;
@@ -104,32 +89,17 @@ public class Bresenham {
         } else if (dy > dx) {
             p = 2 * dx - dy;
             Point[] list = new Point[dy + 1];
-            if (start.y < end.y) {//将两个端点中x偏小的点作为起始点，然后比较y轴是递增还递减
-                temp.x = start.x;
-                temp.y = start.y;
-                if (end.x < start.x) {
-                    delta = -1;
-                } else {
-                    delta = 1;
-                }
-            } else {
-                temp.x = end.x;
-                temp.y = end.y;
-                if (end.x > start.x) {
-                    delta = -1;
-                } else {
-                    delta = 1;
-                }
-            }
+            temp.x = end.x;
+            temp.y = end.y;
             for (int i = 0; i <= dy; i++) {
                 list[i] = new Point();
                 if (i == 0) {
                     x = list[0].x = temp.x;
                     y = list[0].y = temp.y;
                 } else {
-                    y = list[i].y = y + 1;
+                    y = list[i].y = y + deltaY;
                     if (p >= 0) {
-                        x = list[i].x = x + delta;
+                        x = list[i].x = x + deltaX;
                         p = p + 2 * dx - 2 * dy;
                     } else {
                         x = list[i].x = x;

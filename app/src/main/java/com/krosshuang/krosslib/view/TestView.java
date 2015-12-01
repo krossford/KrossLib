@@ -72,7 +72,9 @@ public class TestView extends View{
     public void setLine(Point start, Point end) {
         this.start = start;
         this.end = end;
+        //long time = SystemClock.uptimeMillis();
         list = Bresenham.line(start, end);
+        //Log.i("bresenham", "cast time: " + (SystemClock.uptimeMillis() - time));
     }
 
 
