@@ -16,7 +16,7 @@ public class Util {
      * line (x3, y3) - (x4, y4)
      * @return 如果两条直线无法形成焦点，将返回(0, 0)点
      * */
-    public static float[] getCrossPoint2(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+    public static float[] getCrossPoint(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
         int lineType1 = getLineType(x1, y1, x2, y2);
         int lineType2 = getLineType(x3, y3, x4, y4);
 
