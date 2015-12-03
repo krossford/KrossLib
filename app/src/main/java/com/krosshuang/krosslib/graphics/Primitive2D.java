@@ -129,7 +129,7 @@ public class Primitive2D {
         Log.i(LOG_TAG, "circle params: " + cx + " - " + cy + " - " + r);
         int p = (int)(1.25 - r);
 
-        Point[] partCircle = getInitedPointArray((int)(r * Math.sin(Math.PI / 4f)));
+        Point[] partCircle = getInitedPointArray(1 + (int)(r * Math.sin(Math.PI / 4f)));
 
         int x = 0;
         int y = (int)r;
@@ -144,10 +144,11 @@ public class Primitive2D {
                 if (p >= 0) {
                     y--;
                     partCircle[i].y = y;
-                    p = p + 5 + 2 * x - 2 * y;
+                    p = p + 1 + 2 * x - 2 * y;
                 } else {
                     partCircle[i].y = y;
-                    p = p + 3 + 2 * x;
+                    p = p + 1 + 2 * x;
+
                 }
             }
         }

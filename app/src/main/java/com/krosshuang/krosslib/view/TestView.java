@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -86,7 +87,9 @@ public class TestView extends View{
     }
 
     private void setCircle(float x, float y) {
+        long time = SystemClock.uptimeMillis();
         list = Primitive2D.circle((int)center.x, (int)center.y, (float)Math.hypot(x - center.x, y - center.y));
+        Log.i(LOG_TAG, "set Circle cast time: " + (SystemClock.uptimeMillis() - time));
         //Log.i(LOG_TAG, "circle point list: " + Arrays.toString(list));
     }
 
