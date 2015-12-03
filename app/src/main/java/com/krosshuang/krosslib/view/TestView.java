@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -19,12 +20,16 @@ import com.krosshuang.krosslib.graphics.Primitive2D;
  */
 public class TestView extends View{
 
+    private static final String LOG_TAG = "TestView";
+
     private RectF rect = new RectF();
     private Point[] list = null;
     private Paint paint = new Paint();
 
-    private Point start;
-    private Point end;
+    private Point start = new Point();
+    private Point end = new Point();
+    private PointF center = new PointF();
+
 
     public TestView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -57,9 +62,12 @@ public class TestView extends View{
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                center.x = event.getX();
+                center.y = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                setLine(new Point(360, 640), new Point((int) event.getX(), (int) event.getY()));
+                //setLine(new Point(360, 640), new Point((int) event.getX(), (int) event.getY()));
+                setCircle(event.getX(), event.getY());
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
@@ -75,6 +83,11 @@ public class TestView extends View{
         //long time = SystemClock.uptimeMillis();
         list = Primitive2D.line(start, end);
         //Log.i("bresenham", "cast time: " + (SystemClock.uptimeMillis() - time));
+    }
+
+    private void setCircle(float x, float y) {
+        list = Primitive2D.circle((int)center.x, (int)center.y, (float)Math.hypot(x - center.x, y - center.y));
+        //Log.i(LOG_TAG, "circle point list: " + Arrays.toString(list));
     }
 
 

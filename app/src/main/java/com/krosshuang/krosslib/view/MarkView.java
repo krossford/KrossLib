@@ -15,7 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.krosshuang.krosslib.graphics.Element;
-import com.krosshuang.krosslib.graphics.Mosaic;
+import com.krosshuang.krosslib.graphics.ImageProcess;
 import com.krosshuang.krosslib.graphics.RectElement;
 
 import java.util.ArrayList;
@@ -182,7 +182,7 @@ public class MarkView extends View {
     public void loadImage(Bitmap bitmap) {
         mImage = bitmap;
         long t = SystemClock.uptimeMillis();
-        mElementPaint.setShader(new BitmapShader(Mosaic.fastMosaic(mImage), Shader.TileMode.MIRROR, Shader.TileMode.MIRROR));
+        mElementPaint.setShader(new BitmapShader(ImageProcess.fastMosaic(mImage), Shader.TileMode.MIRROR, Shader.TileMode.MIRROR));
         Log.i(LOG_TAG, "mosaic cast: " + (SystemClock.uptimeMillis() - t));
         if (mImage.getWidth() <= getWidth() && mImage.getHeight() <= getHeight()) {
             mImageRect = new RectF(0, 0, mImage.getWidth(), mImage.getHeight());
