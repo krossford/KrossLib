@@ -3,10 +3,14 @@ package com.krosshuang.krosslib.graphics;
 import android.graphics.Point;
 
 /**
+ * 二维图元的生成算法
  * Created by krosshuang on 2015/12/1.
  */
-public class Bresenham {
+public class Primitive2D {
 
+    /**
+     * 画线算法，传入起始点结束点，得到直线上一序列的点，算法为bresenham
+     * */
     public static Point[] line(Point start, Point end) {
 
         if (start.x == end.x && start.y == end.y) {
@@ -109,6 +113,10 @@ public class Bresenham {
             }
             return list;
         }
+        return null;
+    }
+
+    public static Point[] circle(int cx, int cy, float r) {
         return null;
     }
 

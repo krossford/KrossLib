@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.krosshuang.krosslib.graphics.Bresenham;
+import com.krosshuang.krosslib.graphics.Primitive2D;
 
 /**
  * Created by krosshuang on 2015/11/25.
@@ -73,7 +73,7 @@ public class TestView extends View{
         this.start = start;
         this.end = end;
         //long time = SystemClock.uptimeMillis();
-        list = Bresenham.line(start, end);
+        list = Primitive2D.line(start, end);
         //Log.i("bresenham", "cast time: " + (SystemClock.uptimeMillis() - time));
     }
 
