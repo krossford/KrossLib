@@ -1,7 +1,6 @@
 package com.krosshuang.krosslib.graphics;
 
 import android.graphics.Point;
-import android.util.Log;
 
 /**
  * 二维图元的生成算法
@@ -10,6 +9,11 @@ import android.util.Log;
 public class Primitive2D {
 
     private static final String LOG_TAG = "Primitive2D";
+
+    private static final int NO_TRANSFORM = 0;
+    private static final int ABOUT_DIAGONAL_LINE = 1;
+    private static final int ABOUT_X = 2;
+    private static final int ABOUT_Y = 3;
 
     /**
      * 画线算法，传入起始点结束点，得到直线上一序列的点，算法为bresenham
@@ -126,40 +130,32 @@ public class Primitive2D {
      * @return
      */
     public static Point[] circle(int cx, int cy, float r) {
-        Log.i(LOG_TAG, "circle params: " + cx + " - " + cy + " - " + r);
         int p = (int)(1.25 - r);
-
-        Point[] partCircle = getInitedPointArray(1 + (int)(r * Math.sin(Math.PI / 4f)));
+        int partLength = 1 + (int)(r * Math.sin(Math.PI / 4f));
+        Point[] circle = getInitedPointArray(partLength * 8);
 
         int x = 0;
         int y = (int)r;
 
-        for (int i = 0; i < partCircle.length; i++) {
-            if (i == 0) {
-                partCircle[i].x = x;
-                partCircle[i].y = y;
-            } else {
-                x++;
-                partCircle[i].x = x;
-                if (p >= 0) {
-                    y--;
-                    partCircle[i].y = y;
-                    p = p + 1 + 2 * x - 2 * y;
-                } else {
-                    partCircle[i].y = y;
-                    p = p + 1 + 2 * x;
+        circle[0].x = x;
+        circle[0].y = y;
 
-                }
+        for (int i = 1; i < partLength; i++) {
+            circle[i].x = ++x;
+            if (p >= 0) {
+                circle[i].y = --y;
+                p = p + 1 + 2 * x - 2 * y;
+            } else {
+                circle[i].y = y;
+                p = p + 1 + 2 * x;
+
             }
         }
 
-
-        Point[] circle = getInitedPointArray(partCircle.length * 8);
-
-        copyPointWithTransform(circle, 0, partCircle.length, partCircle, NO_TRANSFORM);
-        copyPointWithTransform(circle, partCircle.length, partCircle.length, circle, ABOUT_DIAGONAL_LINE);
-        copyPointWithTransform(circle, partCircle.length * 2, partCircle.length * 2, circle, ABOUT_X);
-        copyPointWithTransform(circle, partCircle.length * 4, partCircle.length * 4, circle, ABOUT_Y);
+        copyPoint(circle, 0, partLength, circle, NO_TRANSFORM);
+        copyPoint(circle, partLength, partLength, circle, ABOUT_DIAGONAL_LINE);
+        copyPoint(circle, partLength * 2, partLength * 2, circle, ABOUT_X);
+        copyPoint(circle, partLength * 4, partLength * 4, circle, ABOUT_Y);
 
         for (Point tp : circle) {
             tp.x += cx;
@@ -169,12 +165,7 @@ public class Primitive2D {
         return circle;
     }
 
-    private static final int NO_TRANSFORM = 0;
-    private static final int ABOUT_DIAGONAL_LINE = 1;
-    private static final int ABOUT_X = 2;
-    private static final int ABOUT_Y = 3;
-
-    private static void copyPointWithTransform(Point[] src, int start, int len, Point[] from, int type) {
+    private static void copyPoint(Point[] src, int start, int len, Point[] from, int type) {
         for (int i = 0; i < len; i++) {
             switch (type) {
                 case NO_TRANSFORM:
