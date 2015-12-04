@@ -9,8 +9,14 @@ import java.io.IOException;
  * Created by krosshuang on 2015/12/2.
  */
 public class FileUtil {
+
     private static final String LOG_TAG = "FileUtil";
 
+    /**
+     * 获取文件的所有字节
+     * @param f 目标文件对象
+     * @return 文件中的所有字节
+     * */
     public static byte[] getBytesFromFile(File f) throws IOException {
         FileInputStream fis = new FileInputStream(f);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -20,6 +26,9 @@ public class FileUtil {
         while ((len = fis.read(buffer)) > 0) {
             os.write(buffer, 0, len);
         }
+
+        fis.close();
+        os.close();
 
         return os.toByteArray();
     }
@@ -63,7 +72,8 @@ public class FileUtil {
         final int head = 0x0000ffd8;
         final int end = 0x0000ffd9;
 
-        return head == twoBytesToInt(new byte[]{data[0], data[1]}) && end == twoBytesToInt(new byte[]{data[data.length - 2], data[data.length - 1]});
+        //TODO, 不能通过判断ffd9是否是文件尾的方式来判断是否是JPG图片，因为有的图片尾部会添加额外的数据，ffd9就不是文件尾了 2015-12-4 17:38:36
+        return head == twoBytesToInt(new byte[]{data[0], data[1]});
     }
 
     public static boolean isBMP(byte[] data) {
