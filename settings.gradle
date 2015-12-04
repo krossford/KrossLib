@@ -1,1 +1,1 @@
-include ':app', ':javaprogram', ':testplugin', ':myphotoshop'
+include ':app', ':testplugin', ':myphotoshop'
