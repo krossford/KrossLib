@@ -29,6 +29,13 @@ public class TestAdapter extends BaseAdapter {
         }
     }
 
+    public void addData() {
+        for (int i = 0; i < 10; i++) {
+            mData.add(mIndex++ + "");
+        }
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mData.size();

@@ -1,6 +1,7 @@
 package com.krosshuang.krosslib.lib.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,7 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
     private static final String LOG_TAG = "BottomLoadListView";
 
     public interface BottomLoadListViewListener extends OnScrollListener {
-        void onScrollToBottom();
+        void onTriggerLoad();
     }
 
     public static final int TRIGGER_MODE_TOP = 1;
@@ -43,6 +44,11 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
 
     public void setBottomLoadingView(View v) {
         mBottomLoadingView = v;
+        addFooterView(mBottomLoadingView);
+    }
+
+    public void setListener(BottomLoadListViewListener l) {
+        mListener = l;
     }
 
 
@@ -54,13 +60,35 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
     }
 
     @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+    }
+
+    @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
         if (mListener != null) {
             mListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
         }
 
         if (mBottomLoadingView != null) {
             Log.i(LOG_TAG, "top: " + mBottomLoadingView.getTop());
+
+            if (mTriggerMode == TRIGGER_MODE_TOP) {
+
+                if (mBottomLoadingView.getTop() != 0 && mBottomLoadingView.getTop() < getBottom()) {
+                    if (mListener != null) {
+                        mListener.onTriggerLoad();
+                    }
+                }
+            } else if (mTriggerMode == TRIGGER_MODE_BOTTOM) {
+                if (mBottomLoadingView.getBottom() == getBottom()) {
+                    if (mListener != null) {
+                        mListener.onTriggerLoad();
+                    }
+                }
+            }
         }
     }
+
 }
