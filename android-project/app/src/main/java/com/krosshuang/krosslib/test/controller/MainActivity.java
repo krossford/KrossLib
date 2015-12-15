@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.controller;
+package com.krosshuang.krosslib.test.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent();
-        intent.setClassName("com.krosshuang.krosslib", "com.krosshuang.krosslib.controller." + mData[position][1]);
+        intent.setClassName("com.krosshuang.krosslib", "com.krosshuang.krosslib.test.controller." + mData[position][1]);
         startActivity(intent);
     }
 

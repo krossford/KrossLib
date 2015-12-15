@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.util;
+package com.krosshuang.krosslib.lib.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.codec;
+package com.krosshuang.krosslib.lib.codec;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class LZW {
         for (int code : arr) {
             if (dic.containsKey(code)) {
                 c = dic.get(code);
-            } else if (code == idleCode) {  //����Ψһ������� aaaaaaa
+            } else if (code == idleCode) {// aaaaaaa
                 c = c + c.charAt(0);
             } else {
                 System.out.println("bad encode");

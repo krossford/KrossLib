@@ -1,9 +1,9 @@
-package com.krosshuang.krosslib.graphics;
+package com.krosshuang.krosslib.lib.graphics;
 
 import android.graphics.PointF;
 import android.util.Log;
 
-import com.krosshuang.krosslib.math.PolarPointF;
+import com.krosshuang.krosslib.lib.math.PolarPointF;
 
 /**
  *

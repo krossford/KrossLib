@@ -3,9 +3,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-<com.krosshuang.krosslib.view.TestView
-    android:id="@+id/testview"
+<com.krosshuang.krosslib.lib.view.BottomLoadListView
+    android:id="@+id/bottom_load_listview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f1ff00"/>
+    android:layout_height="match_parent"/>
 </LinearLayout>

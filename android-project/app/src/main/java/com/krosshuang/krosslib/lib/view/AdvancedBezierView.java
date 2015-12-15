@@ -1,7 +1,6 @@
-package com.krosshuang.krosslib.view;
+package com.krosshuang.krosslib.lib.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,9 +11,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.krosshuang.krosslib.graphics.BezierControlPoint;
-import com.krosshuang.krosslib.graphics.BezierCurve;
-import com.krosshuang.krosslib.graphics.Util;
+import com.krosshuang.krosslib.lib.graphics.BezierControlPoint;
+import com.krosshuang.krosslib.lib.graphics.BezierCurve;
+import com.krosshuang.krosslib.lib.graphics.Util;
 
 import java.util.ArrayList;
 import java.util.List;

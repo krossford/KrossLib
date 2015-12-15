@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.view;
+package com.krosshuang.krosslib.lib.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.krosshuang.krosslib.graphics.Primitive2D;
+import com.krosshuang.krosslib.lib.graphics.Primitive2D;
 
 /**
  * Created by krosshuang on 2015/11/25.

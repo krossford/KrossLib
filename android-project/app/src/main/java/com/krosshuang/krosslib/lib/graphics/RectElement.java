@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.graphics;
+package com.krosshuang.krosslib.lib.graphics;
 
 import android.graphics.RectF;
 

@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.codec;
+package com.krosshuang.krosslib.lib.codec;
 
 import java.util.ArrayList;
 

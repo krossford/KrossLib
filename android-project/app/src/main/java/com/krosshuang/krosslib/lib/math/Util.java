@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.math;
+package com.krosshuang.krosslib.lib.math;
 
 /**
  * Created by krosshuang on 2015/12/1.

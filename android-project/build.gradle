@@ -2,9 +2,7 @@
 
 buildscript {
     repositories {
-        maven{
-            url "http://mirrors.ibiblio.org/pub/mirrors/maven2"
-        }
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
@@ -16,8 +14,6 @@ buildscript {
 
 allprojects {
     repositories {
-        maven{
-            url "http://mirrors.ibiblio.org/pub/mirrors/maven2"
-        }
+        jcenter()
     }
 }

@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.graphics;
+package com.krosshuang.krosslib.lib.graphics;
 
 /**
  * Created by krosshuang on 2015/10/26.

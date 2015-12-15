@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.codec;
+package com.krosshuang.krosslib.lib.codec;
 
 public class Main {
  

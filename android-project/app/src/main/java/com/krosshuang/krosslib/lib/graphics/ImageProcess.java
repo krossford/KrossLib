@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.graphics;
+package com.krosshuang.krosslib.lib.graphics;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;

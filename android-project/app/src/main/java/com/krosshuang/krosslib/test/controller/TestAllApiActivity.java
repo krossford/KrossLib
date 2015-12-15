@@ -1,10 +1,11 @@
-package com.krosshuang.krosslib.controller;
+package com.krosshuang.krosslib.test.controller;
 
 import android.app.Activity;
 import android.os.Bundle;
 
 import com.krosshuang.krosslib.R;
-import com.krosshuang.krosslib.view.TestView;
+import com.krosshuang.krosslib.lib.view.BottomLoadListView;
+import com.krosshuang.krosslib.lib.view.TestView;
 
 /**
  *
@@ -13,13 +14,20 @@ import com.krosshuang.krosslib.view.TestView;
 public class TestAllApiActivity extends Activity{
 
     private TestView mTestView = null;
+    private BottomLoadListView mBottomLoadListView = null;
+    private TestAdapter mAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        mTestView = (TestView) findViewById(R.id.testview);
+
+        mBottomLoadListView = (BottomLoadListView)findViewById(R.id.bottom_load_listview);
+        mAdapter = new TestAdapter(this);
+        mBottomLoadListView.setAdapter(mAdapter);
+
+        //mTestView = (TestView) findViewById(R.id.testview);
 
         /*
         mTestView.setOnClickListener(new View.OnClickListener() {

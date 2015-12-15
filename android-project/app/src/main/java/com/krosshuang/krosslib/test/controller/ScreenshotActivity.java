@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.controller;
+package com.krosshuang.krosslib.test.controller;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.krosshuang.krosslib.R;
-import com.krosshuang.krosslib.view.MarkView;
+import com.krosshuang.krosslib.lib.view.MarkView;
 
 import java.io.IOException;
 import java.util.ArrayList;

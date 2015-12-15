@@ -1,4 +1,4 @@
-package com.krosshuang.krosslib.view;
+package com.krosshuang.krosslib.lib.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,9 +14,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.krosshuang.krosslib.graphics.Element;
-import com.krosshuang.krosslib.graphics.ImageProcess;
-import com.krosshuang.krosslib.graphics.RectElement;
+import com.krosshuang.krosslib.lib.graphics.Element;
+import com.krosshuang.krosslib.lib.graphics.ImageProcess;
+import com.krosshuang.krosslib.lib.graphics.RectElement;
 
 import java.util.ArrayList;
 

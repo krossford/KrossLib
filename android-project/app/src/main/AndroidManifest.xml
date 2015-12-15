@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".controller.MainActivity"
+            android:name=".test.controller.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.krosshuang.krosslib.controller.ScreenshotActivity"
+            android:name="com.krosshuang.krosslib.test.controller.ScreenshotActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,14 +24,14 @@
 
         </activity>
         <activity
-            android:name="com.krosshuang.krosslib.controller.BezierActivity"
+            android:name="com.krosshuang.krosslib.test.controller.BezierActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.krosshuang.krosslib.controller.TestAllApiActivity"
+            android:name="com.krosshuang.krosslib.test.controller.TestAllApiActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
