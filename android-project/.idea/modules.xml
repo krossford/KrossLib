@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KrossAndroidLib.iml" filepath="$PROJECT_DIR$/KrossAndroidLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-project.iml" filepath="$PROJECT_DIR$/android-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/myphotoshop/myphotoshop.iml" filepath="$PROJECT_DIR$/myphotoshop/myphotoshop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testplugin/testplugin.iml" filepath="$PROJECT_DIR$/testplugin/testplugin.iml" />
     </modules>
   </component>
 </project>
