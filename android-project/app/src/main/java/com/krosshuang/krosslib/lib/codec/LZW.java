@@ -9,7 +9,7 @@ public class LZW {
     public static List<Integer> encode(String data) {
         List<Integer> result = new ArrayList<>();
         
-        //��ʼ��dictionary
+        //dictionary
         int idleCode = 256;
         HashMap<String, Integer> dic = new HashMap<>();
         for (int i = 0; i < 256; i++) {
@@ -28,8 +28,7 @@ public class LZW {
                 previous = "" + c;
             }
         }
-        
-        //���һ�����
+
         if (!previous.equals("")) {
             result.add(dic.get(previous));
         }

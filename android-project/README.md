@@ -16,31 +16,48 @@
 
 ### graphics
 
-* BezierCurve 贝塞尔曲线
-* Primitive2D 二维图元
-* ImageProcess 图像处理
+* **BezierCurve** 贝塞尔曲线
+    * build
+    * progressWith
+    * setPointSequence
+* **Primitive2D** 二维图元
+    * circle
+    * line
+* **ImageProcess** 图像处理
+    * fastMosaic 马赛克算法
 
 ### codec
 
-* LZW LZW编解码的实现
-* RunLength 游程编解码的实现
+* **LZW** LZW编解码的实现
+* **RunLength** 游程编解码的实现
 
 ### math
 
-* PolarPointF 极坐标系中的点
-* Util 处理一些常规计算
+* **PolarPointF** 极坐标系中的点
+    * parseFromCartesianCoordinatePoint
+    * toCartesianCoordinatePoint
+* **Util** 处理一些常规计算
+    * getCrossPoint
 
 ### util
 
-* FileUtil 一些和文件相关的操作
+* **FileUtil** 一些和文件相关的操作
+    * fourBytesToInt
+    * getBytesFromFile
+    * getSuffix
+    * isBMP
+    * isGIF
+    * isJPG
+    * isPNG
+    * twoBytesToInt
 
 ### views
-* BottomLoadingListView 滑动到底部触发能触发回调的ListView，支持自定义 loading view
-    * setTriggerMode(int) 设置触发模式
-    * setBottomLoadingView(View) 设置底部加载view
-    * hideBottomLoadingView() 隐藏底部加载view
-    * showBottomLoadingView() 显示底部加载view
-    * setListener(BottomLoadingListViewListener) 设置监听器
+* **BottomLoadingListView** 滑动到底部触发能触发回调的ListView，支持自定义 loading view
+    * setTriggerMode 设置触发模式
+    * setBottomLoadingView 设置底部加载view
+    * hideBottomLoadingView 隐藏底部加载view
+    * showBottomLoadingView 显示底部加载view
+    * setListener 设置监听器
 
 ## myphotoshop
 这个目前来说是个坑
