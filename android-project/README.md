@@ -1,5 +1,8 @@
 # KrossAndroidLib
 
+* [app](https://github.com/krossford/KrossLib/tree/master/android-project#app)
+* [views](https://github.com/krossford/KrossLib/tree/master/android-project#views)
+
 ## app
 
 这个Module里面有各种积累的代码，包括一些算法的实现，一些绘图的实现，一些花心思写的工具函数。
@@ -73,6 +76,8 @@ isGIF(byte[])
 //获取文件名的后缀
 getSuffix(String)
 ```
+
+### views
 
 **javaprogram**
 
