@@ -1,8 +1,9 @@
 package com.krosshuang.krosslib.test.controller;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,11 +18,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final String LOG_TAG = "MainActivity";
 
     private ListView mListView = null;
+    private View mFragmentContainer = null;
+
     private DemoListAdapter mAdapter = null;
+    private FragmentManager mFragmentManager = null;
+
     private String[][] mData = new String[][]{
-            {"Bezier Curve", "BezierActivity"},
-            {"Screenshot Marker", "ScreenshotActivity"},
-            {"Test All API", "TestAllApiActivity"}
+            {"Bezier Curve", "BezierFragment"},
+            {"Test BottomLoadListView", "TestBottomLoadListView"}
     };
 
     @Override
@@ -38,9 +42,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent();
-        intent.setClassName("com.krosshuang.krosslib", "com.krosshuang.krosslib.test.controller." + mData[position][1]);
-        startActivity(intent);
+        ShowFragmentActivity.start(this, mData[position][1]);
     }
 
     class DemoListAdapter extends BaseAdapter {
