@@ -43,7 +43,7 @@ public class TestBottomLoadListView extends Fragment implements BottomLoadListVi
         pb.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mBottomLoadListView.setBottomLoadingView(pb);
         mBottomLoadListView.setListener(this);
-        mBottomLoadListView.setTriggerMode(BottomLoadListView.TRIGGER_MODE_BOTTOM);
+        mBottomLoadListView.setTriggerMode(BottomLoadListView.TRIGGER_MODE_TOP);
 
         return mRoot;
     }

@@ -3,7 +3,6 @@ package com.krosshuang.krosslib.lib.codec;
 import java.util.ArrayList;
 
 public class RunLength {
-    enum Status {GET_LENGTH, };
     
     public static byte[] decode(byte[] data) {
         int index = 0;
