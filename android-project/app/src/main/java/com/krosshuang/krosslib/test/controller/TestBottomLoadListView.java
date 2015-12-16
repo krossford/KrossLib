@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.krosshuang.krosslib.R;
 import com.krosshuang.krosslib.lib.view.BottomLoadListView;
-import com.krosshuang.krosslib.lib.view.TestView;
 
 /**
  *
@@ -26,7 +25,6 @@ public class TestBottomLoadListView extends Fragment implements BottomLoadListVi
     private final static String LOG_TAG = "TestAllApiActivity";
 
     private View mRoot = null;
-    private TestView mTestView = null;
     private BottomLoadListView mBottomLoadListView = null;
     private TestAdapter mAdapter = null;
 
