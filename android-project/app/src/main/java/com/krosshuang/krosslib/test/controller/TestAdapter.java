@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class TestAdapter extends BaseAdapter {
 
-    private static int mIndex = 0;
+    public static int mIndex = 0;
 
     private Context mContext = null;
     private ArrayList<String> mData = new ArrayList<String>();
@@ -24,13 +24,16 @@ public class TestAdapter extends BaseAdapter {
     public TestAdapter(Context c) {
         mContext = c;
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 23; i++) {
             mData.add(mIndex++ + "");
         }
     }
 
     public void addData() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 13; i++) {
+            if (mIndex == 100) {
+                break;
+            }
             mData.add(mIndex++ + "");
         }
         notifyDataSetChanged();

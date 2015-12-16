@@ -2,6 +2,8 @@ package com.krosshuang.krosslib.test.controller;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -24,6 +26,8 @@ public class TestAllApiActivity extends Activity implements BottomLoadListView.B
     private BottomLoadListView mBottomLoadListView = null;
     private TestAdapter mAdapter = null;
 
+    private MyHandler mHandler = new MyHandler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +44,11 @@ public class TestAllApiActivity extends Activity implements BottomLoadListView.B
         mBottomLoadListView.setListener(this);
         mBottomLoadListView.setTriggerMode(BottomLoadListView.TRIGGER_MODE_BOTTOM);
 
+        /*
         mBottomLoadListView.hideBottomLoadingView();
         mBottomLoadListView.showBottomLoadingView();
+        */
+
 
         //mTestView = (TestView) findViewById(R.id.testview);
 
@@ -63,7 +70,20 @@ public class TestAllApiActivity extends Activity implements BottomLoadListView.B
     public void onTriggerLoad() {
         Log.i(LOG_TAG, "onTriggerLoad");
         Toast.makeText(this, "onTriggerLoad", Toast.LENGTH_SHORT).show();
-        //mAdapter.addData();
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mHandler.obtainMessage().sendToTarget();
+            }
+        }).start();
+
     }
 
     @Override
@@ -74,5 +94,15 @@ public class TestAllApiActivity extends Activity implements BottomLoadListView.B
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
+    }
+
+    class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            mAdapter.addData();
+            if (TestAdapter.mIndex == 100) {
+                mBottomLoadListView.hideBottomLoadingView();
+            }
+        }
     }
 }

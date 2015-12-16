@@ -1,4 +1,5 @@
 # KrossAndroidLib
+编码: UTF-8
 
 
 * [app](https://github.com/krossford/KrossLib/tree/master/android-project#app)

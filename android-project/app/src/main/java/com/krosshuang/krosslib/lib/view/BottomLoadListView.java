@@ -181,8 +181,16 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
                 // bottom trigger mode
                 // ===============
                 if (mBottomLoadingView.getBottom() == getBottom()) {
-                    if (mListener != null) {
-                        mListener.onTriggerLoad();
+                    if (mLastTop == mBottomLoadingView.getTop()) {
+                        mSameCount++;
+                    } else {
+                        mSameCount = 0;
+                    }
+
+                    if (mSameCount == 0) {
+                        if (mListener != null) {
+                            mListener.onTriggerLoad();
+                        }
                     }
                 }
             }
