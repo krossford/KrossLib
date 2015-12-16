@@ -8,6 +8,27 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 /**
+ 如何使用？
+
+ > 1.你需要 implement BottomLoadListViewListener 接口
+
+ > 2.初始化 BottomLoadListView
+
+ mBottomLoadListView = findViewById(...);
+
+ ProgressBar pb = new ProgressBar(this);
+ pb.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+ mBottomLoadListView.setBottomLoadingView(pb);
+ mBottomLoadListView.setTriggerMode(BottomLoadListView.TRIGGER_MODE_BOTTOM);
+
+ mBottomLoadListView.setListener(this);
+
+ > 3.在 onTriggerLoad() 回调中做你想做的事情
+
+*/
+
+/**
  * 底部加载ListView，当滑动到底部，显示出自定义的loadingView，给回调来让你加载数据
  * 已覆盖AbsListView.OnScrollListener，请使用BottomLoadListViewListener
  * Created by krosshuang on 2015/12/15.
@@ -17,6 +38,10 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
     private static final String LOG_TAG = "BottomLoadListView";
 
     public interface BottomLoadListViewListener extends OnScrollListener {
+
+        /**
+         * 根据 TRIGGER_MODE_* 的配置，当达到触发条件时触发一次
+         * */
         void onTriggerLoad();
     }
 
@@ -57,9 +82,27 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
         mTriggerMode = triggerMode;
     }
 
+    /**
+     * set loading view
+     * */
     public void setBottomLoadingView(View v) {
+        if (getFooterViewsCount() != 0 && mBottomLoadingView != null) {
+            removeFooterView(mBottomLoadingView);
+        }
         mBottomLoadingView = v;
         addFooterView(mBottomLoadingView);
+    }
+
+    public void hideBottomLoadingView() {
+        if (mBottomLoadingView != null) {
+            removeFooterView(mBottomLoadingView);
+        }
+    }
+
+    public void showBottomLoadingView() {
+        if (mBottomLoadingView != null) {
+            addFooterView(mBottomLoadingView);
+        }
     }
 
     public void setListener(BottomLoadListViewListener l) {

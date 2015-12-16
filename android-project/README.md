@@ -35,6 +35,11 @@
 
 ### views
 * BottomLoadingListView 滑动到底部触发能触发回调的ListView，支持自定义 loading view
+    * setTriggerMode(int) 设置触发模式
+    * setBottomLoadingView(View) 设置底部加载view
+    * hideBottomLoadingView() 隐藏底部加载view
+    * showBottomLoadingView() 显示底部加载view
+    * setListener(BottomLoadingListViewListener) 设置监听器
 
 ## myphotoshop
 这个目前来说是个坑

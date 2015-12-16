@@ -40,6 +40,9 @@ public class TestAllApiActivity extends Activity implements BottomLoadListView.B
         mBottomLoadListView.setListener(this);
         mBottomLoadListView.setTriggerMode(BottomLoadListView.TRIGGER_MODE_BOTTOM);
 
+        mBottomLoadListView.hideBottomLoadingView();
+        mBottomLoadListView.showBottomLoadingView();
+
         //mTestView = (TestView) findViewById(R.id.testview);
 
         /*
