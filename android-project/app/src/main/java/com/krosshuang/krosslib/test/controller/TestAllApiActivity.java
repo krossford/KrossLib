@@ -21,6 +21,7 @@ import com.krosshuang.krosslib.lib.view.TestView;
 public class TestAllApiActivity extends Activity implements BottomLoadListView.BottomLoadListViewListener{
 
     private final static String LOG_TAG = "TestAllApiActivity";
+    //
 
     private TestView mTestView = null;
     private BottomLoadListView mBottomLoadListView = null;
