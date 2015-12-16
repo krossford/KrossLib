@@ -1,7 +1,6 @@
 package com.krosshuang.krosslib.lib.view;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 /**
- * 底部加载ListView
+ * 底部加载ListView，当滑动到底部，显示出自定义的loadingView，给回调来让你加载数据
  * 已覆盖AbsListView.OnScrollListener，请使用BottomLoadListViewListener
  * Created by krosshuang on 2015/12/15.
  */
@@ -21,14 +20,28 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
         void onTriggerLoad();
     }
 
+    /**
+     * 当 loadingView 顶部刚显示出来就触发
+     * */
     public static final int TRIGGER_MODE_TOP = 1;
+
+    /**
+     * 当 loadingView 底部显示出来才触发
+     * */
     public static final int TRIGGER_MODE_BOTTOM = 2;
+
+    private static final int STATUS_CAN_NOT_SEE = 1;    //不能看见BottomLoadingView
+    private static final int STATUS_CAN_SEE_PART = 2;   //只能看见一部分BottomLoadingView
+    private static final int STATUS_CAN_SEE_ALL = 3;    //能看见整个BottomLoadingView
 
     private BottomLoadListViewListener mListener = null;
 
     private View mBottomLoadingView = null;
 
     private int mTriggerMode = TRIGGER_MODE_TOP;
+    private int mStatus = STATUS_CAN_NOT_SEE;
+    private int mLastTop = 0;
+    private int mSameCount = 0;
 
     public BottomLoadListView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,6 +50,8 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
 
     /**
      * 设置触发模式
+     * @see #TRIGGER_MODE_TOP
+     * @see #TRIGGER_MODE_BOTTOM
      * */
     public void setTriggerMode(int triggerMode) {
         mTriggerMode = triggerMode;
@@ -51,17 +66,11 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
         mListener = l;
     }
 
-
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if (mListener != null) {
             mListener.onScrollStateChanged(view, scrollState);
         }
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
     }
 
     @Override
@@ -72,22 +81,69 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
         }
 
         if (mBottomLoadingView != null) {
-            Log.i(LOG_TAG, "top: " + mBottomLoadingView.getTop());
+
+            Log.i(LOG_TAG, "top: " + mBottomLoadingView.getTop() + " ListView bottom: " + getBottom());
 
             if (mTriggerMode == TRIGGER_MODE_TOP) {
+                // ===============
+                // top trigger mode
+                // ===============
+                switch (mStatus) {
+                    //完全看不见
+                    case STATUS_CAN_NOT_SEE:
+                        Log.i(LOG_TAG, "STATUS_CAN_NOT_SEE");
+                        if (mBottomLoadingView.getTop() != 0 && mBottomLoadingView.getTop() < getBottom()) {
+                            //当loading view 显示出来然后再滑上去，top会变成一个定值，如果定值小于 ListView.bottom ，就会一直触发这个，所以如果相等的话，就不触发
+                            if (mLastTop == mBottomLoadingView.getTop()) {
+                                mSameCount++;
+                            } else {
+                                mSameCount = 0;
+                            }
 
-                if (mBottomLoadingView.getTop() != 0 && mBottomLoadingView.getTop() < getBottom()) {
-                    if (mListener != null) {
-                        mListener.onTriggerLoad();
-                    }
+                            if (mSameCount >= 1) {
+                                mStatus = STATUS_CAN_NOT_SEE;
+                            } else {
+                                // 走到这里满足了以下条件：
+                                // 1.loadingView.top != 0 不是初始化进来的情况
+                                // 2.loadingView.top < ListView.bottom 说明loadingView是可见的，冒出了头
+                                // 3.loadingView.top != lastTop top值不与上一次的相同，说明是可见的
+                                mStatus = STATUS_CAN_SEE_PART;
+                                if (mListener != null) {
+                                    mListener.onTriggerLoad();
+                                }
+                            }
+                        }
+                        break;
+                    //看得见一部分
+                    case STATUS_CAN_SEE_PART:
+                        Log.i(LOG_TAG, "STATUS_CAN_SEE_PART");
+                        //判断是否与上一次相同，如果top值不再变化，说明loadingView不可见了
+                        if (mLastTop == mBottomLoadingView.getTop()) {
+                            mSameCount++;
+                        } else {
+                            mSameCount = 0;
+                        }
+
+                        if (mSameCount >= 2) {
+                            mStatus = STATUS_CAN_NOT_SEE;
+                        }
+                        break;
+                    //完全看得见
+                    case STATUS_CAN_SEE_ALL:
+                        Log.i(LOG_TAG, "STATUS_CAN_SEE_ALL");
+                        break;
                 }
             } else if (mTriggerMode == TRIGGER_MODE_BOTTOM) {
+                // ===============
+                // bottom trigger mode
+                // ===============
                 if (mBottomLoadingView.getBottom() == getBottom()) {
                     if (mListener != null) {
                         mListener.onTriggerLoad();
                     }
                 }
             }
+            mLastTop = mBottomLoadingView.getTop();
         }
     }
 

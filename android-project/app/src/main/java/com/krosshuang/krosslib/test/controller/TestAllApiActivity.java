@@ -38,7 +38,7 @@ public class TestAllApiActivity extends Activity implements BottomLoadListView.B
         pb.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mBottomLoadListView.setBottomLoadingView(pb);
         mBottomLoadListView.setListener(this);
-        mBottomLoadListView.setTriggerMode(BottomLoadListView.TRIGGER_MODE_TOP);
+        mBottomLoadListView.setTriggerMode(BottomLoadListView.TRIGGER_MODE_BOTTOM);
 
         //mTestView = (TestView) findViewById(R.id.testview);
 
@@ -60,7 +60,6 @@ public class TestAllApiActivity extends Activity implements BottomLoadListView.B
     public void onTriggerLoad() {
         Log.i(LOG_TAG, "onTriggerLoad");
         Toast.makeText(this, "onTriggerLoad", Toast.LENGTH_SHORT).show();
-
         //mAdapter.addData();
     }
 
