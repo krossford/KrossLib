@@ -31,12 +31,14 @@ import android.widget.ListView;
  * 底部加载ListView，当滑动到底部，显示出自定义的loadingView，给回调来让你加载数据
  * 已覆盖AbsListView.OnScrollListener，请使用BottomLoadListViewListener
  * Created by krosshuang on 2015/12/15.
+ * update log
+ * 1.让这个view的setOnScrollListener方法仍然保持默认的使用方式 2015-12-17 11:06:21
  */
 public class BottomLoadListView extends ListView implements AbsListView.OnScrollListener{
 
     private static final String LOG_TAG = "BottomLoadListView";
 
-    public interface BottomLoadListViewListener extends OnScrollListener {
+    public interface BottomLoadListViewListener {
 
         /**
          * 根据 TRIGGER_MODE_* 的配置，当达到触发条件时触发一次
@@ -59,6 +61,7 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
     private static final int STATUS_CAN_SEE_ALL = 3;    //能看见整个BottomLoadingView
 
     private BottomLoadListViewListener mListener = null;
+    private OnScrollListener mOnScrollListener = null;
 
     private View mBottomLoadingView = null;
 
@@ -70,7 +73,7 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
 
     public BottomLoadListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOnScrollListener(this);
+        super.setOnScrollListener(this);
     }
 
     /**
@@ -83,7 +86,7 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
     }
 
     /**
-     * set loading view
+     * set loading view and showBottomLoadingView
      * */
     public void setBottomLoadingView(View v) {
         if (getFooterViewsCount() != 0 && mBottomLoadingView != null) {
@@ -92,22 +95,6 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
         mBottomLoadingView = v;
         super.addFooterView(mBottomLoadingView);
         mIsBottomLoadingViewHide = false;
-    }
-
-    /**
-     * don't use this method
-     * */
-    @Deprecated
-    @Override
-    public void addFooterView(View v) { }
-
-    /**
-     * don't use this method
-     * */
-    @Deprecated
-    @Override
-    public boolean removeFooterView(View v) {
-        return false;
     }
 
     public void hideBottomLoadingView() {
@@ -129,17 +116,22 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
     }
 
     @Override
+    public void setOnScrollListener(OnScrollListener l) {
+        mOnScrollListener = l;
+    }
+
+    @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        if (mListener != null) {
-            mListener.onScrollStateChanged(view, scrollState);
+        if (mOnScrollListener != null) {
+            mOnScrollListener.onScrollStateChanged(view, scrollState);
         }
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-        if (mListener != null) {
-            mListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
+        if (mOnScrollListener != null) {
+            mOnScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
         }
 
         if (mBottomLoadingView != null) {
@@ -215,6 +207,23 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
             }
             mLastTop = mBottomLoadingView.getTop();
         }
+    }
+
+
+    /**
+     * don't use this method
+     * */
+    @Deprecated
+    @Override
+    public void addFooterView(View v) { }
+
+    /**
+     * don't use this method
+     * */
+    @Deprecated
+    @Override
+    public boolean removeFooterView(View v) {
+        return false;
     }
 
 }

@@ -11,12 +11,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.krosshuang.krosslib.lib.graphics.BezierControlPoint;
 import com.krosshuang.krosslib.lib.graphics.BezierCurve;
 import com.krosshuang.krosslib.lib.graphics.Util;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Advanced Bezier View whose behavior is similar to that of Pen Tool of Photoshop.

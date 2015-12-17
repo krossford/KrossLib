@@ -20,7 +20,7 @@ import com.krosshuang.krosslib.lib.view.BottomLoadListView;
  *
  * Created by krosshuang on 2015/11/24.
  */
-public class TestBottomLoadListView extends Fragment implements BottomLoadListView.BottomLoadListViewListener{
+public class TestBottomLoadListView extends Fragment implements BottomLoadListView.BottomLoadListViewListener, AbsListView.OnScrollListener{
 
     private final static String LOG_TAG = "TestAllApiActivity";
 
@@ -43,6 +43,7 @@ public class TestBottomLoadListView extends Fragment implements BottomLoadListVi
         pb.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mBottomLoadListView.setBottomLoadingView(pb);
         mBottomLoadListView.setListener(this);
+        //mBottomLoadListView.setOnScrollListener(this);
         mBottomLoadListView.setTriggerMode(BottomLoadListView.TRIGGER_MODE_TOP);
 
         return mRoot;
@@ -70,12 +71,12 @@ public class TestBottomLoadListView extends Fragment implements BottomLoadListVi
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-
+        Log.i(LOG_TAG, "onScrollStateChanged");
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+        Log.i(LOG_TAG, "onScroll");
     }
 
     class MyHandler extends Handler {

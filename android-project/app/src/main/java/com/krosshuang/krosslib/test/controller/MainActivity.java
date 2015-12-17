@@ -17,14 +17,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final String LOG_TAG = "MainActivity";
 
     private ListView mListView = null;
-    private View mFragmentContainer = null;
 
     private DemoListAdapter mAdapter = null;
     private FragmentManager mFragmentManager = null;
 
     private String[][] mData = new String[][]{
             {"Bezier Curve", "BezierFragment"},
-            {"Test BottomLoadListView", "TestBottomLoadListView"}
+            {"Test BottomLoadListView", "TestBottomLoadListView"},
+            {"Test Ellipsize", "TestEllipsizeTextViewFragment"},
     };
 
     @Override

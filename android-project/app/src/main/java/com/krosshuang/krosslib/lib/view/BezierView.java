@@ -11,10 +11,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.krosshuang.krosslib.lib.graphics.BezierCurve;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.krosshuang.krosslib.lib.graphics.BezierCurve;
 
 /**
  * Created by krosshuang on 2015/10/21.
