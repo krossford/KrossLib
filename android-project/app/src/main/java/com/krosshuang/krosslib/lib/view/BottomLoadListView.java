@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-/**
+/*
  如何使用？
 
  > 1.你需要 implement BottomLoadListViewListener 接口

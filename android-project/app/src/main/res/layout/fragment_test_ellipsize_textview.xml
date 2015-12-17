@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.krosshuang.krosslib.lib.view.EllipsizeTextView
+    <com.krosshuang.krosslib.lib.view.EllipsizeEndTextView
         android:id="@+id/ellipsize_textview"
         android:layout_width="match_parent"
         android:textSize="20sp"
         android:layout_height="wrap_content"
-        android:maxLines="3"
+        android:padding="10dp"
         android:background="#ff0000"
         android:text="abcdefg"/>
     <TextView
