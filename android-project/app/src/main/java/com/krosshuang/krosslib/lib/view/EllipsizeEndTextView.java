@@ -8,20 +8,24 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /*
- 如何使用？
+如何使用？
+How to use it?
 
- > 1.在xml或者java代码中常规使用
+> 1.在xml或者java代码中常规使用
+> 1.use it like other views on xml and java code.
 
- > 2.[必须] setMaxLines 方法替代在xml中的 "android:maxLines" 属性
+> 2.[必须] setMaxLines 方法替代在xml中的 "android:maxLines" 属性
+> 2.[must] call the setMaxLines method to instead of the xml property android:maxLines.
 
- > 3.[可选] 注意调用 setMultilineEllipsizeMode() 方法，具体请查看注释
+> 3.[可选] 注意调用 setMultilineEllipsizeMode() 方法，具体请查看注释
+> 3.[option] you can invoke setMultilineEllipsizeMode method, but I have not implement it.
 
- */
+*/
 
 /**
- * android自己的TextView对多行ellipsize处理的不好
- * Created by krosshuang on 2015/12/17.
- */
+* android自己的TextView对多行ellipsize处理的不好
+* Created by krosshuang on 2015/12/17.
+*/
 public class EllipsizeEndTextView extends TextView {
 
     private static final String LOG_TAG = "EllipsizeTextView";
