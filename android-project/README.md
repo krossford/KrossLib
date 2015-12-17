@@ -58,6 +58,8 @@
     * hideBottomLoadingView 隐藏底部加载view
     * showBottomLoadingView 显示底部加载view
     * setListener 设置监听器
+* **EllipsizeEndTextView** 能正常处理multiline ellipsize的情况，目前只能处理ellipsize为end的情况
+    * setMaxLines 在java中主动调用一下这个方法
 
 ## myphotoshop
 这个目前来说是个坑
