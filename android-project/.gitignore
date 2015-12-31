@@ -9,3 +9,5 @@
 build.gradle
 gradle.properties
 local.properties
+gradlew
+gradlew.bat
