@@ -2,6 +2,7 @@ package com.krosshuang.krosslib.lib.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
@@ -86,9 +87,14 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
     }
 
     /**
-     * set loading view and showBottomLoadingView
+     * set loading view and showBottomLoadingView <br/>
+     * Please invoke this method before setAdapter()
      * */
     public void setBottomLoadingView(View v) {
+        if (getAdapter() != null) {
+            Log.e(LOG_TAG, "Ops! you should invoke this method before setAdapter(), otherwise, it may cause a ClassCastException to lead a crash.");
+            throw new RuntimeException("Ops! you should invoke this method before setAdapter(), otherwise, it may cause a ClassCastException to lead a crash.");
+        }
         if (getFooterViewsCount() != 0 && mBottomLoadingView != null) {
             super.removeFooterView(mBottomLoadingView);
         }

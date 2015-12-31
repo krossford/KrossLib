@@ -2,6 +2,7 @@ package com.krosshuang.krosslib.lib.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -47,7 +48,6 @@ public class EllipsizeEndTextView extends TextView {
     private int mMaxLines = 1;
     private boolean mNeedIgnoreTextChangeAndSelfInvoke = false;
 
-
     public EllipsizeEndTextView(Context context) {
         super(context);
     }
@@ -80,7 +80,9 @@ public class EllipsizeEndTextView extends TextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        setVisibleText();
+        if (getEllipsize() == TextUtils.TruncateAt.END) {
+            setVisibleText();
+        }
         super.onDraw(canvas);
         mNeedIgnoreTextChangeAndSelfInvoke = false;
     }
