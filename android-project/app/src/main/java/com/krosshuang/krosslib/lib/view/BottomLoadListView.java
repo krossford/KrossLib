@@ -3,6 +3,7 @@ package com.krosshuang.krosslib.lib.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
@@ -136,7 +137,7 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+        Log.i(LOG_TAG, "onScroll");
         if (mOnScrollListener != null) {
             mOnScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
         }
@@ -216,6 +217,11 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
         }
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        Log.i(LOG_TAG, "onTouchEvent");
+        return super.onTouchEvent(ev);
+    }
 
     /**
      * don't use this method

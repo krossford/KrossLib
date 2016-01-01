@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private String[][] mData = new String[][]{
             {"Bezier Curve", "BezierFragment"},
-            {"Test BottomLoadListView", "TestBottomLoadListView"},
+            {"Test BottomLoadListView", "TestBottomLoadListViewFragment"},
             {"Test Ellipsize", "TestEllipsizeTextViewFragment"},
             {"Test AlarmManager", "TestAlarmManagerFragment"},
     };
