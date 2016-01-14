@@ -17,14 +17,8 @@
 ### graphics
 
 * **BezierCurve** 贝塞尔曲线
-    * build
-    * progressWith
-    * setPointSequence
 * **Primitive2D** 二维图元
-    * circle
-    * line
 * **ImageProcess** 图像处理
-    * fastMosaic 马赛克算法
 
 ### codec
 
@@ -34,32 +28,16 @@
 ### math
 
 * **PolarPointF** 极坐标系中的点
-    * parseFromCartesianCoordinatePoint
-    * toCartesianCoordinatePoint
 * **Util** 处理一些常规计算
-    * getCrossPoint
 
 ### util
 
 * **FileUtil** 一些和文件相关的操作
-    * fourBytesToInt
-    * getBytesFromFile
-    * getSuffix
-    * isBMP
-    * isGIF
-    * isJPG
-    * isPNG
-    * twoBytesToInt
 
 ### views
 * **BottomLoadingListView** 滑动到底部触发能触发回调的ListView，支持自定义 loading view
-    * setTriggerMode 设置触发模式
-    * setBottomLoadingView 设置底部加载view
-    * hideBottomLoadingView 隐藏底部加载view
-    * showBottomLoadingView 显示底部加载view
-    * setListener 设置监听器
 * **EllipsizeEndTextView** 能正常处理multiline ellipsize的情况，目前只能处理ellipsize为end的情况
-    * setMaxLines 在java中主动调用一下这个方法
+* **DelayCallbackEditText** A EditText could invoke a callback when user doesn't type text for a little time.
 
 ## myphotoshop
 这个目前来说是个坑
