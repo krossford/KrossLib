@@ -6,7 +6,7 @@
 .DS_Store
 /build
 /captures
-build.gradle
+/gradle
 gradle.properties
 local.properties
 gradlew
