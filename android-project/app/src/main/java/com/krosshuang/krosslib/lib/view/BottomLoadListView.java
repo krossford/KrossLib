@@ -88,9 +88,11 @@ public class BottomLoadListView extends ListView implements AbsListView.OnScroll
     }
 
     /**
-     * set loading view and showBottomLoadingView <br/>
-     * Please invoke this method before setAdapter() <br/>
+     * <pre>
+     * set loading view and showBottomLoadingView
+     * Please invoke this method before setAdapter()
      * http://stackoverflow.com/questions/24700588/i-am-using-the-listview-add-remove-footer-for-listview-cross-app-in-android-vers
+     * <pre/>
      * */
     public void setBottomLoadingView(View v) {
         if (getAdapter() != null) {

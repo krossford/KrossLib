@@ -7,21 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.krosshuang.krosslib.R;
+import com.krosshuang.krosslib.lib.view.DelayCallbackEditText;
 import com.krosshuang.krosslib.lib.view.EllipsizeEndTextView;
 
 /**
  * Created by krosshuang on 2015/12/17.
  */
-public class TestEllipsizeTextViewFragment extends Fragment implements View.OnClickListener{
+public class TestEllipsizeTextViewFragment extends Fragment implements View.OnClickListener, DelayCallbackEditText.OnDelayCallbackListener{
 
     private View mRoot = null;
 
     private EllipsizeEndTextView mTextView = null;
-    private EditText mEditText = null;
+    private DelayCallbackEditText mEditText = null;
     private Button mButton = null;
     private TextView mStatus = null;
 
@@ -33,7 +34,9 @@ public class TestEllipsizeTextViewFragment extends Fragment implements View.OnCl
         mTextView = (EllipsizeEndTextView) mRoot.findViewById(R.id.ellipsize_textview);
         mTextView.setMaxLines(4);
 
-        mEditText = (EditText) mRoot.findViewById(R.id.et_input);
+        mEditText = (DelayCallbackEditText) mRoot.findViewById(R.id.et_input);
+        mEditText.setDelayCallback(this);
+
         mButton = (Button) mRoot.findViewById(R.id.btn_put);
         mStatus = (TextView) mRoot.findViewById(R.id.tv_status);
 
@@ -55,5 +58,10 @@ public class TestEllipsizeTextViewFragment extends Fragment implements View.OnCl
                 mTextView.setText(mEditText.getText().toString());
                 break;
         }
+    }
+
+    @Override
+    public void onDelayCallback(CharSequence text) {
+        Toast.makeText(getActivity(), "abcd", Toast.LENGTH_SHORT).show();
     }
 }

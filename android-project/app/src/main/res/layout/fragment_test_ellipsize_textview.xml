@@ -14,7 +14,7 @@
         android:id="@+id/tv_status"
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
-    <EditText
+    <com.krosshuang.krosslib.lib.view.DelayCallbackEditText
         android:id="@+id/et_input"
         android:layout_width="match_parent"
         android:textSize="12sp"
