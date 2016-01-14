@@ -10,7 +10,23 @@ import android.util.Log;
 import android.widget.EditText;
 
 /**
+ * <pre>
+ * How to use it:
+ * first, you just use it like {@link EditText}, don't worry about anything.
+ *
+ * 1.implement interface {@link OnDelayCallbackListener}.
+ * 2.set callback, and delay time length.
+ * mEditText = findViewById(...);
+ * mEditText.setDelayCallback(callback, 3000);
+ *
+ * if you want to update the delay time only, like this:
+ * mEditText.setDelay(2000);
+ *
+ * 3.do what you want in interface callback {@link OnDelayCallbackListener#onDelayCallback(CharSequence)}
+ *
+ * when user don't type text in EditText, after waiting a little time, we will give you a callback.
  * Created by krosshuang on 2016/1/13.
+ * </pre>
  */
 public class DelayCallbackEditText extends EditText {
 
@@ -20,6 +36,7 @@ public class DelayCallbackEditText extends EditText {
         void onDelayCallback(CharSequence text);
     }
 
+    //TODO maybe not best way.
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -35,7 +52,7 @@ public class DelayCallbackEditText extends EditText {
 
     private static final int WHAT_DELAY_CALLBACK = 1;
 
-    private long maxInterval = 5000;
+    private long maxInterval = 2000;
     private long lastTypeTime = 0;
     private CheckRunnable mRunnable = new CheckRunnable();
     private OnDelayCallbackListener mCallback = null;
@@ -67,14 +84,28 @@ public class DelayCallbackEditText extends EditText {
         }
     }
 
-    public void setDelayCallback(OnDelayCallbackListener l) {
+    /**
+     * set callback listener and delay during.
+     * @param l the callback.
+     * @param delay invoking callback's waiting time length.
+     * */
+    public void setDelayCallback(OnDelayCallbackListener l, long delay) {
         mCallback = l;
+        maxInterval = delay;
     }
 
+    /**
+     * set(update) the delay during.
+     * @param delay invoking callback's waiting time length.
+     * */
+    public void setDelay(long delay) {
+        maxInterval = delay;
+    }
+
+    //TODO when this view invisible(Activity finished or be covered), I think it's best that this runnable could be die.
     private class CheckRunnable implements Runnable {
 
         private boolean allowRun = false;
-
 
         @Override
         public void run() {
@@ -86,7 +117,7 @@ public class DelayCallbackEditText extends EditText {
                     return;
                 } else {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(maxInterval / 3);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -103,12 +134,11 @@ public class DelayCallbackEditText extends EditText {
             }
         }
 
+        /**
+         * update marker that tell runnable stop work.
+         * */
         public void die() {
             allowRun = false;
-        }
-
-        public void updateTime() {
-
         }
     }
 }
