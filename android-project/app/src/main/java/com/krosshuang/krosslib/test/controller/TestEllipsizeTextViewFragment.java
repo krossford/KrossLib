@@ -35,7 +35,7 @@ public class TestEllipsizeTextViewFragment extends Fragment implements View.OnCl
         mTextView.setMaxLines(4);
 
         mEditText = (DelayCallbackEditText) mRoot.findViewById(R.id.et_input);
-        mEditText.setDelayCallback(this);
+        mEditText.setDelayCallback(this, 2000);
 
         mButton = (Button) mRoot.findViewById(R.id.btn_put);
         mStatus = (TextView) mRoot.findViewById(R.id.tv_status);
