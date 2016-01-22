@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             {"Test BottomLoadListView", "TestBottomLoadListViewFragment"},
             {"Test Ellipsize", "TestEllipsizeTextViewFragment"},
             {"Test AlarmManager", "TestAlarmManagerFragment"},
+            {"Test Toy MyListView", "TestToyMyListViewFragment"},
     };
 
     @Override
