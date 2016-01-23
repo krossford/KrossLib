@@ -18,6 +18,7 @@ public class MyListView extends ViewGroup implements MyBaseAdapter.OnAdapterData
     private static final String LOG_TAG = "MyListView:kross";
     private MyBaseAdapter mAdapter = null;
 
+    //TODO this needs checking whether it works well.
     private HashMap<Integer, LinkedList<View>> mViewCachePool = new HashMap<Integer, LinkedList<View>>();
 
     public MyListView(Context context) {
@@ -106,7 +107,9 @@ public class MyListView extends ViewGroup implements MyBaseAdapter.OnAdapterData
                 mFirstItemTop = 0;
                 mCurrentFirstVisibleIndex++;
             } else if (i == 0 && itemTop > 0 && mCurrentFirstVisibleIndex > 0) {
+                mFirstItemTop = mFirstItemTop - temp.getMeasuredHeight();
                 mCurrentFirstVisibleIndex--;
+
             }
 
             temp.layout(0, itemTop, temp.getMeasuredWidth(), itemBottom);
@@ -115,11 +118,6 @@ public class MyListView extends ViewGroup implements MyBaseAdapter.OnAdapterData
         Log.i(LOG_TAG, "mCurrentFirstVisibleIndex: " + mCurrentFirstVisibleIndex + " mFirstItemTop: " + mFirstItemTop);
     }
 
-    /*
-    private boolean isFirstItemInvisible() {
-        getChildAt(0).;
-    }
-*/
     private View getViewFromCachePool(int type) {
         if (mViewCachePool.get(type) == null) {
             return null;
