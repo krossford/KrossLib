@@ -32,41 +32,94 @@ public class MyListView extends ViewGroup implements MyBaseAdapter.OnAdapterData
         super(context, attrs, defStyleAttr);
     }
 
-    int type = 0;
+    /**
+     * 当前，第一个可见的item的top值
+     * write by onTouch
+     * */
+    private int mFirstItemTop = 0;
+
+    /**
+     * 当前，第一个可见的Item在数据中的index
+     * write by onLayout
+     * */
+    private int mCurrentFirstVisibleIndex = 0;
+
+    /**
+     * write by onMeasure
+     * */
+    private int mCurrentVisibleItemCount = 0;
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.i(LOG_TAG, "onMeasure: " + getMeasuredWidth() + ", " + getMeasuredHeight());
+
+        //1.可以知道自己的尺寸，也就是这个ListView的尺寸
+        //2.决定mChildren里面有几个View
+        //3.决定了visible view count有多少个
 
         View temp = null;
-        int consumedHeight = 0;
+        int consumedHeight = mFirstItemTop;
+        mCurrentVisibleItemCount = 0;
         removeAllViews();
 
-        for (int i = 0; i < mAdapter.getCount(); i++) {
+        for (int i = mCurrentFirstVisibleIndex; i < mAdapter.getCount(); i++) {
             temp = mAdapter.getView(getViewFromCachePool(mAdapter.getViewType(i)), i);
             temp.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(heightMeasureSpec), MeasureSpec.UNSPECIFIED));
+            mCurrentVisibleItemCount++;
             addView(temp);
             consumedHeight += temp.getMeasuredHeight();
             if (consumedHeight >= getMeasuredHeight()) {
                 break;
             }
         }
+
+        Log.i(LOG_TAG, "call onMeasure: " + " firstIndex: " + mCurrentFirstVisibleIndex + " visibleCount: " + mCurrentVisibleItemCount + " mChildren.count: " + getChildCount());
     }
+
+
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         Log.i(LOG_TAG, "call onLayout: " + l + ", " + t + ", " + r + ", " + b);
+
+        //1.负责把mChildren都摆上去就完事了
+        //2.决定first visible item view在数据中的index
+
         View temp;
-        int castHeight = 0;
+        int type;
+        int consumedHeight = 0;
+        int itemTop;
+        int itemBottom;
+
         for (int i = 0; i < getChildCount(); i++) {
+
             temp = getChildAt(i);
-            temp.layout(0, castHeight, temp.getMeasuredWidth(), castHeight + temp.getMeasuredHeight());
-            castHeight = castHeight + temp.getHeight();
-            Log.i(LOG_TAG, "castHeight: " + castHeight);
+
+            type = mAdapter.getViewType(i + mCurrentFirstVisibleIndex);
+
+            itemTop = mFirstItemTop + consumedHeight;
+            itemBottom = mFirstItemTop + consumedHeight + temp.getMeasuredHeight();
+
+            if (i == 0 && itemTop <= 0 && itemBottom <= 0) {
+                putViewToCachePool(type, temp);
+                consumedHeight = 0;
+                mFirstItemTop = 0;
+                mCurrentFirstVisibleIndex++;
+            } else if (i == 0 && itemTop > 0 && mCurrentFirstVisibleIndex > 0) {
+                mCurrentFirstVisibleIndex--;
+            }
+
+            temp.layout(0, itemTop, temp.getMeasuredWidth(), itemBottom);
+            consumedHeight = consumedHeight + temp.getHeight();
         }
+        Log.i(LOG_TAG, "mCurrentFirstVisibleIndex: " + mCurrentFirstVisibleIndex + " mFirstItemTop: " + mFirstItemTop);
     }
 
+    /*
+    private boolean isFirstItemInvisible() {
+        getChildAt(0).;
+    }
+*/
     private View getViewFromCachePool(int type) {
         if (mViewCachePool.get(type) == null) {
             return null;
@@ -77,9 +130,33 @@ public class MyListView extends ViewGroup implements MyBaseAdapter.OnAdapterData
         }
     }
 
+    private void putViewToCachePool(int type, View view) {
+        if (mViewCachePool.get(type) == null) {
+            mViewCachePool.put(type, new LinkedList<View>());
+        }
+
+        mViewCachePool.get(type).push(view);
+    }
+
+    private float mDownY;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
+        Log.i(LOG_TAG, "call onTouchEvent");
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mDownY = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float delta = event.getY() - mDownY;
+                mFirstItemTop = (int)(mFirstItemTop + delta);
+                mDownY = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+        requestLayout();
+        return true;
     }
 
     @Override
