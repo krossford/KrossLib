@@ -18,7 +18,13 @@
         android:id="@+id/et_input"
         android:layout_width="match_parent"
         android:textSize="12sp"
-        android:layout_height="150dp"/>
+        android:layout_height="50dp"/>
+    <TextView
+        android:id="@+id/tv_test2"
+        android:layout_width="250dp"
+        android:textSize="18sp"
+        android:maxLines="3"
+        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/btn_put"
         android:layout_width="match_parent"

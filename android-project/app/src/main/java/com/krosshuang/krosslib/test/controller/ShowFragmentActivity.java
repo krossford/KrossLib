@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.krosshuang.krosslib.R;
 
@@ -14,6 +15,8 @@ import com.krosshuang.krosslib.R;
  * Created by krosshuang on 2015/12/16.
  */
 public class ShowFragmentActivity extends FragmentActivity {
+
+    private static final String LOG_TAG = "ShowFragmentActivity";
 
     private static String sFragmentName = null;
 
@@ -39,6 +42,36 @@ public class ShowFragmentActivity extends FragmentActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.v(LOG_TAG, "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v(LOG_TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.v(LOG_TAG, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v(LOG_TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.v(LOG_TAG, "onDestroy");
     }
 
     public static void start(Context from, String fragment) {

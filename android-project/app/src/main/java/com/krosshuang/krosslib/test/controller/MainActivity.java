@@ -3,6 +3,7 @@ package com.krosshuang.krosslib.test.controller;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mListView = (ListView)findViewById(R.id.lv_list);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -78,6 +80,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             return convertView;
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.v(LOG_TAG, "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v(LOG_TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.v(LOG_TAG, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v(LOG_TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.v(LOG_TAG, "onDestroy");
     }
 
     class Holder {
