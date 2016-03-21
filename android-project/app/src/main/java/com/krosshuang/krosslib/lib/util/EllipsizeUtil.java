@@ -1,6 +1,5 @@
 package com.krosshuang.krosslib.lib.util;
 
-
 import android.graphics.Paint;
 
 import java.util.ArrayList;
@@ -26,6 +25,28 @@ public class EllipsizeUtil {
      */
     public static CharSequence ellipsize(CharSequence raw, int availableWidth, Paint textPaint, int maxLine, CharSequence omit, CharSequence suffix, ArrayList<CharSequence> output) {
 
+        Log.v(LOG_TAG, "raw: " + raw + " availableWidth: " + availableWidth + " maxLine: " + maxLine + " omit: " + omit + " suffix: " + suffix);
+
+        if (raw == null || raw.equals("")) {
+            return "";
+        }
+
+        if (availableWidth <= 0 || textPaint == null) {
+            throw new IllegalArgumentException("availableWidth should greater than 0 or textPaint should not be null");
+        }
+
+        if (maxLine <= 0) {
+            maxLine = 1;
+        }
+
+        if (omit == null) {
+            omit = "...";
+        }
+
+        if (suffix == null) {
+            suffix = "";
+        }
+
         if (output == null) {
             output = new ArrayList<CharSequence>();
         }
@@ -38,17 +59,28 @@ public class EllipsizeUtil {
 
         for (int i = 1; i <= maxLine; i++) {
             tempResult = sub(raw.subSequence(start, len), availableWidth, textPaint);
+            if (tempResult.equals("")) {
+                break;
+            }
             start += tempResult.length();
+            Log.v(LOG_TAG, "i: " + i + "sub result: " + tempResult);
             output.add(tempResult);
         }
 
         StringBuilder sb = new StringBuilder();
-        if (textPaint.measureText(sb.append(output.get(maxLine - 1)).append(suffix).toString()) > availableWidth) {
-            CharSequence c = subWithSuffix(output.get(maxLine - 1), omit, suffix, availableWidth, textPaint);
-            output.remove(maxLine - 1);
-            output.add(c);
+        if (textPaint.measureText(sb.append(output.get(output.size() - 1)).append(suffix).toString()) > availableWidth) {
+            // 判断，如果最后一行文本拼上后缀超出了可用宽度
+            if (output.size() < maxLine) {
+                // 如果当前行数小于maxLine，那么直接把后缀文本拼在最后一行上面，这样最后一行能自动换行到下一行
+                output.set(output.size() - 1, sb.subSequence(0, sb.length()));
+            } else {
+                // 如果已经是最后一行了，那么进行裁剪
+                CharSequence c = subWithSuffix(output.get(output.size() - 1), omit, suffix, availableWidth, textPaint);
+                output.remove(output.size() - 1);
+                output.add(c);
+            }
         } else {
-            output.remove(maxLine - 1);
+            output.remove(output.size() - 1);
             output.add(sb.subSequence(0, sb.length()));
         }
 
