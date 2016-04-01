@@ -1,6 +1,9 @@
 package com.krosshuang.krosslib.lib.util;
 
+
 import android.graphics.Paint;
+import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -9,38 +12,42 @@ import java.util.ArrayList;
  */
 public class EllipsizeUtil {
 
-    private static final String LOG_TAG = "EllipsizeUtil";
+    private static final String LOG_TAG = "EllipsizeUtil:kross";
+
+    public static final String COMMON_OMIT_STRING = "...";
 
     /**
+     * <pre>
      * ellipsize string
+     * 做省略字符串计算，始终保留后缀（suffix参数）,如果显示不下，会在后缀之前插入省略字符（omit参数），并截掉一些原始内容（raw）参数。
+     * 能处理原始内容本身就包含换行（'\n'）的情况，会保留原始内容中的换行，然后再次基础上，逐行的进行计算。
+     * 只能处理纯字符串的情况，如果字符串有样式啥的，目前还处理不了
      *
-     * @param raw            原始字符串
+     * @param raw            原始字符串，内容字符串
      * @param availableWidth 显示这个字符串的TextView的可用宽度，通常是 measuredWidth - paddingLeft - paddingRight
      * @param textPaint      TextView的Paint
      * @param maxLine        textView的maxLine属性
      * @param omit           省略字符，当显示不下的时候，会出现这个，通常是"..."或"…"
      * @param suffix         后缀，始终保持在最后需要显示的字符串，如"的聊天记录"
-     * @param output         存放结果的引用，存着每一行
-     * @return 返回值是直接拼接好的结果，每一行之间插入'\n'
+     * @param output         存放结果的引用，存着每一行（结尾不带'\n'），传null的话，会帮你new一个，传个非null的，会帮你先clear了
+     * @return 返回值是直接拼接好的结果，每一行之间插入'\n'（最后一行没有'\n'）
+     * </pre>
      */
     public static CharSequence ellipsize(CharSequence raw, int availableWidth, Paint textPaint, int maxLine, CharSequence omit, CharSequence suffix, ArrayList<CharSequence> output) {
-
-        Log.v(LOG_TAG, "raw: " + raw + " availableWidth: " + availableWidth + " maxLine: " + maxLine + " omit: " + omit + " suffix: " + suffix);
-
-        if (raw == null || raw.equals("")) {
+        if (availableWidth < 1 || TextUtils.isEmpty(raw) || null == textPaint) {
             return "";
         }
 
-        if (availableWidth <= 0 || textPaint == null) {
-            throw new IllegalArgumentException("availableWidth should greater than 0 or textPaint should not be null");
-        }
+        Log.v(LOG_TAG, "raw: " + raw + " availableWidth: " + availableWidth + " maxLine: " + maxLine + " omit: " + omit + " suffix: " + suffix);
+        int len = raw.length();
+        if(len < 1) return raw;
 
         if (maxLine <= 0) {
             maxLine = 1;
         }
 
         if (omit == null) {
-            omit = "...";
+            omit = COMMON_OMIT_STRING;
         }
 
         if (suffix == null) {
@@ -52,19 +59,28 @@ public class EllipsizeUtil {
         }
         output.clear();
 
-        int start = 0;
-        int len = raw.length();
-
         CharSequence tempResult;
 
-        for (int i = 1; i <= maxLine; i++) {
-            tempResult = sub(raw.subSequence(start, len), availableWidth, textPaint);
-            if (tempResult.equals("")) {
-                break;
+        int currentLineCount = 1;
+
+        // 如果原始字符串本身就有换行了，那么把事先把行都换好了
+        String[] lines = raw.toString().split("\n");
+
+        //Log.v(LOG_TAG, "lines: " + Arrays.toString(lines));
+
+        int start = 0;
+
+        for (String singleLine : lines) {
+            len = singleLine.length();
+            start = 0;
+            for (; currentLineCount <= maxLine; currentLineCount++) {
+                tempResult = sub(singleLine.subSequence(start, len), availableWidth, textPaint);
+                if (tempResult.equals("")) {
+                    break;
+                }
+                start += tempResult.length();
+                output.add(tempResult);
             }
-            start += tempResult.length();
-            Log.v(LOG_TAG, "i: " + i + "sub result: " + tempResult);
-            output.add(tempResult);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -85,9 +101,11 @@ public class EllipsizeUtil {
         }
 
         StringBuilder sb2 = new StringBuilder();
-        for (CharSequence cs : output) {
-            //Log.v(LOG_TAG, "最终结果：" + cs);
-            sb2.append(cs).append('\n');
+        for (int i = 0; i < output.size(); i++) {
+            sb2.append(output.get(i));
+            if (i != output.size() - 1) {
+                sb2.append("\n");
+            }
         }
 
         return sb2.subSequence(0, sb2.length());
@@ -95,6 +113,8 @@ public class EllipsizeUtil {
 
     private static CharSequence sub(CharSequence raw, int availableWidth, Paint textPaint) {
         int len = raw.length();
+        if(len < 1) return raw;
+
         while (textPaint.measureText(raw.subSequence(0, len), 0, len) > availableWidth) {
             len--;
         }
@@ -102,9 +122,12 @@ public class EllipsizeUtil {
     }
 
     private static CharSequence subWithSuffix(CharSequence raw, CharSequence omit, CharSequence suffix, int availableWidth, Paint textPaint) {
-        String realSuffix = suffix.toString();
+
         boolean b = true;
         int len = raw.length();
+        if(len < 1) return raw;
+
+        String realSuffix = suffix.toString();
         while (textPaint.measureText(raw.subSequence(0, len).toString() + realSuffix, 0, len + realSuffix.length()) > availableWidth) {
             len--;
             if (b) {
