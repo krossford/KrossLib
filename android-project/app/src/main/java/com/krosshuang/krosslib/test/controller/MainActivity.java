@@ -1,7 +1,6 @@
 package com.krosshuang.krosslib.test.controller;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +16,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private static final String LOG_TAG = "MainActivity";
 
-    private ListView mListView = null;
+    private static final class ViewHolder {
+        ListView listView;
+    }
+
+    private ViewHolder mViewHolder = new ViewHolder();
 
     private DemoListAdapter mAdapter = null;
-    private FragmentManager mFragmentManager = null;
 
     private String[][] mData = new String[][]{
             {"Bezier Curve", "BezierFragment"},
@@ -37,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mAdapter = new DemoListAdapter();
 
-        mListView = (ListView)findViewById(R.id.lv_list);
-        mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(this);
+        mViewHolder.listView = (ListView)findViewById(R.id.lv_list);
+        mViewHolder.listView.setAdapter(mAdapter);
+        mViewHolder.listView.setOnItemClickListener(this);
 
     }
 
