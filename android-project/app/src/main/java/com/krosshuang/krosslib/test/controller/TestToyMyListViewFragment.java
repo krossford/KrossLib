@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 
 import com.krosshuang.krosslib.R;
 import com.krosshuang.krosslib.toy.MyListView;
@@ -40,8 +41,13 @@ public class TestToyMyListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_test_toy_my_list_view, null);
 
-        mListView = (MyListView) root.findViewById(R.id.my_list_view);
-        mListView.setAdapter(mAdapter);
+        NumberPicker np = (NumberPicker) root.findViewById(R.id.number_picker);
+        np.setMinValue(0);
+        np.setMaxValue(12);
+        np.setWrapSelectorWheel(false);
+
+//        mListView = (MyListView) root.findViewById(R.id.my_list_view);
+//        mListView.setAdapter(mAdapter);
 
         return root;
     }

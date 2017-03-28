@@ -17,6 +17,14 @@ android {
 
     }
 
+    sourceSets {
+        test {
+            java {
+                srcDirs = ['test/java']
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,4 +36,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
+    testCompile 'junit:junit:4.12'
 }

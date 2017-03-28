@@ -35,7 +35,7 @@ public abstract class AbsAsyncTask {
     public final boolean start() {
         if (changeStatusTo(STATUS_RUNNING)) {
             startTime = SystemClock.elapsedRealtime();
-            ReqManager.INSTANCE.startReq(this);
+            AbsAsyncTaskManager.INSTANCE.startReq(this);
             work();
             return true;
         } else {
@@ -79,7 +79,7 @@ public abstract class AbsAsyncTask {
         onTimeout();
     }
 
-    public boolean isRequesting() {
+    public boolean isRunning() {
         return mStatus == STATUS_RUNNING;
     }
 

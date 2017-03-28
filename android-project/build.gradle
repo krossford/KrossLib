@@ -2,8 +2,18 @@
 
 buildscript {
     repositories {
-        jcenter()
+        flatDir { dirs 'buildtools/repo' }
+        maven {
+            url "http://maven.oa.com/nexus/content/repositories/android"
+        }
+        maven {
+            url "http://maven.oa.com/nexus/content/repositories/jcenter"
+        }
 
+        maven { url "http://maven.oa.com/nexus/content/repositories/thirdparty/" }
+    }
+    repositories {
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
@@ -14,6 +24,17 @@ buildscript {
 }
 
 allprojects {
+    repositories {
+        flatDir { dirs 'buildtools/repo' }
+        maven {
+            url "http://maven.oa.com/nexus/content/repositories/android"
+        }
+        maven {
+            url "http://maven.oa.com/nexus/content/repositories/jcenter"
+        }
+
+        maven { url "http://maven.oa.com/nexus/content/repositories/thirdparty/" }
+    }
     repositories {
         jcenter()
     }
