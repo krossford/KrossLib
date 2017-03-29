@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.krosshuang.krosslib.R;
-import com.krosshuang.krosslib.lib.framework.DataHolder;
-import com.krosshuang.krosslib.lib.framework.ObserverData;
-import com.krosshuang.krosslib.lib.framework.ViewHolder;
+import com.krosshuang.krosslib.lib.framework.binding.DataHolder;
+import com.krosshuang.krosslib.lib.framework.binding.ObserverData;
+import com.krosshuang.krosslib.lib.framework.binding.ViewHolder;
 
 /**
  * Created by krosshuang on 2017/3/28.
