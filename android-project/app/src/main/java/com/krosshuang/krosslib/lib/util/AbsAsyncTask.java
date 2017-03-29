@@ -4,6 +4,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 /**
+ * 主要用于处理超时的情况
  * Created by krosshuang on 2017/1/10.
  */
 
@@ -11,9 +12,9 @@ public abstract class AbsAsyncTask {
 
     private static final String LOG_TAG = "AbsAsyncTask";
 
-    public static final long TIME_OUT_DURING = 30 * 1000;
+    private long TIME_OUT_DURING = 30 * 1000;
 
-    public static final int STATUS_IDLE = 0;                    // idle status
+    public static final int STATUS_IDLE = 0;                   // idle status
     public static final int STATUS_RUNNING = 100;              // running status
     public static final int STATUS_DEAD_JOB_FINISHED = 200;    // dead, job finished
     public static final int STATUS_DEAD_TIMEOUT = 201;         // dead, timeout
@@ -30,7 +31,7 @@ public abstract class AbsAsyncTask {
 
     /**
      * Start the task
-     * @return true means task bas been started, false means fails
+     * @return true me ans task bas been started, false means fails
      * */
     public final boolean start() {
         if (changeStatusTo(STATUS_RUNNING)) {
@@ -73,6 +74,17 @@ public abstract class AbsAsyncTask {
     }
 
     protected abstract void onTimeout();
+
+    /**
+     * 设置超时
+     * */
+    protected void setTimeout(long duration) {
+        TIME_OUT_DURING = duration;
+    }
+
+    public long getTimeout() {
+        return TIME_OUT_DURING;
+    }
 
     void invokeTimeout() {
         changeStatusTo(STATUS_DEAD_TIMEOUT);
