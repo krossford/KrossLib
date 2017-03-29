@@ -58,7 +58,7 @@ public class TestSpanFragment extends Fragment {
 
         sb.setSpan(absoluteSizeSpan, 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        textView.setText(ellipsize(sb, textView.getPaint(), 200, 3, "...", "的聊天记录"));
+        textView.setText("你好你好你好\n你好你好你好你好你好");
     }
 
     public CharSequence ellipsize(Spannable spannable, Paint paint, int viewWidth, int maxLine, String omit, String suffix) {
